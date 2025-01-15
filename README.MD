@@ -1,6 +1,6 @@
 ## Run This To Terminal
-composer config repositories.nv vcs https://github.com/New-Vision-2050/base.git
+composer config repositories.m-tech-stack vcs https://github.com/mabou7agar/base.git
 ## Composer Require
-composer require nv/base-package:dev-master
+composer require m-tech-stack/base-package:dev-master
 ## Run Vendor
 php artisan vendor:publish --tag="base-package" --force
