@@ -1,30 +1,42 @@
 ## Installation
 
 ### Composer Require
+``` bash
 composer require m-tech-stack/base-package
+```
 ### Run Vendor
+``` bash
 php artisan vendor:publish --tag="base-package" --force
+```
 
 ### How To Use
 
 #### Create New Module
+``` bash
 php artisan module:make ModuleName
+```
 
 #### Create New Module inside Folder
 - Main Module ( Ex. Payment )
 - Sub Module ( Urway )
-
+``` bash
 php artisan module:make ModuleName MainModule
+```
 
 #### Create Migration inside module assuming Module is User
+``` bash
 php artisan module:make-migration create_users_table User
+```
 
 #### You can follow this structure for any other supported artisan commands
+``` bash
 php artisan module:make-{artisan-action} ModuleName
+```
 
 #### Similar to
-
+``` bash
 php artisan make:{artisan-action}
+```
 
 ## Structure
 
