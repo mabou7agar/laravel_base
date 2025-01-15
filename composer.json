@@ -1,0 +1,22 @@
+{
+  "name": "vn/base-package",
+  "description": "This Project Base For Using Modules",
+  "type": "library",
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "BasePackage\\": "src/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "BasePackage\\Providers\\BasePackageServiceProvider"
+      ]
+    }
+  },
+  "require": {
+    "nwidart/laravel-modules": "9.0.2",
+    "tucker-eric/eloquentfilter": "^3.4"
+  }
+}
