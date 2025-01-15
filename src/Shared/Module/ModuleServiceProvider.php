@@ -83,9 +83,8 @@ abstract class ModuleServiceProvider extends ServiceProvider
             $path = Str::after($path, 'Modules');
         } elseif (str_contains(__DIR__, 'src')) {
             $absoluteAppPath = Str::before(__DIR__, 'src');
-            $absoluteAppPath = Str::beforeLast($absoluteAppPath,'/');
             $absoluteAppPath = Str::beforeLast($absoluteAppPath,'/').'/';
-            $path .= '/src';
+            $path = '/src';
         } else {
             $absoluteAppPath = Str::before(__DIR__, $path);
         }
