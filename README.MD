@@ -22,11 +22,11 @@ php artisan module:make-migration create_users_table User
 #### You can follow this structure for any other supported artisan commands
 php artisan module:make-{artisan-action} ModuleName
 
-####Similar to
+#### Similar to
 
 php artisan make:{artisan-action}
 
-##Structure
+## Structure
 
 All application files will be under app folder we have the following
 1. **Console**
