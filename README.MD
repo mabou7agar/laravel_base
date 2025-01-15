@@ -5,6 +5,27 @@ composer require m-tech-stack/base-package
 ### Run Vendor
 php artisan vendor:publish --tag="base-package" --force
 
+### How To Use
+
+#### Create New Module
+php artisan module:make ModuleName
+
+#### Create New Module inside Folder
+- Main Module ( Ex. Payment )
+- Sub Module ( Urway )
+
+php artisan module:make ModuleName MainModule
+
+#### Create Migration inside module assuming Module is User
+php artisan module:make-migration create_users_table User
+
+#### You can follow this structure for any other supported artisan commands
+php artisan module:make-{artisan-action} ModuleName
+
+####Similar to
+
+php artisan make:{artisan-action}
+
 ##Structure
 
 All application files will be under app folder we have the following
