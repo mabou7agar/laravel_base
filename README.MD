@@ -5,7 +5,7 @@ composer require m-tech-stack/base-package
 ### Run Vendor
 php artisan vendor:publish --tag="base-package" --force
 
-##Structure
+## Structure
 
 All application files will be under app folder we have the following
 1. **Console**
