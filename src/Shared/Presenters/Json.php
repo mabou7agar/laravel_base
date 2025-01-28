@@ -23,7 +23,7 @@ class Json
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function buildItems(
+    public static function buildItems(
         $key = null,
         $data = [],
         $description = null,
@@ -63,7 +63,7 @@ class Json
             'description' => $description,
         ];
 
-        return $this->make($content, $httpStatus, $extraHeaders);
+        return self::make($content, $httpStatus, $extraHeaders);
     }
 
     /**
@@ -76,7 +76,7 @@ class Json
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function error(
+    public static function error(
         $description = '',
         $code = null,
         $name = null,
@@ -101,10 +101,10 @@ class Json
 
         $content['message'] = $error;
 
-        return $this->make($content, $httpStatus, $extraHeaders);
+        return self::make($content, $httpStatus, $extraHeaders);
     }
 
-    public function validationError($validationErrors = '')
+    public static function validationError($validationErrors = '')
     {
         $content['status'] = 'validation_error';
 
@@ -131,7 +131,7 @@ class Json
 
         $content['message'] = $ValidationErrorsMessage;
 
-        return $this->make($content, 422, []);
+        return self::make($content, 422, []);
     }
 
 
@@ -145,7 +145,7 @@ class Json
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function success(
+    public static function success(
         $description = '',
         $code = '',
         $name = '',
@@ -170,7 +170,7 @@ class Json
 
         $content['message'] = $success;
 
-        return $this->make($content, $httpStatus, $extraHeaders);
+        return self::make($content, $httpStatus, $extraHeaders);
     }
 
     /**
@@ -178,7 +178,7 @@ class Json
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function make($content, $httpStatus, $extraHeaders = [])
+    public static function make($content, $httpStatus, $extraHeaders = [])
     {
         $arrHeaders = [
             'Content-Type' => 'application/json; charset=utf-8',
@@ -194,16 +194,16 @@ class Json
 
     //-- Version 2
 
-    public function done($message = null, $code = self::SUCCESS_WITHOUT_PAYLOAD)
+    public static function done($message = null, $code = self::SUCCESS_WITHOUT_PAYLOAD)
     {
         $data['code'] = $code;
 
         $data['message'] = $message;
 
-        return $this->make($data, 200);
+        return self::make($data, 200);
     }
 
-    public function failed($errors = [], $message = null, $code = null, $httpStatus = 400)
+    public static function failed($errors = [], $message = null, $code = null, $httpStatus = 400)
     {
         $data['code'] = $code;
 
@@ -217,10 +217,10 @@ class Json
 
         $data['payload'] = $errors;
 
-        return $this->make($data, $httpStatus);
+        return self::make($data, $httpStatus);
     }
 
-    public function validationFailed($validationErrors = '')
+    public static function validationFailed($validationErrors = '')
     {
         $validations = json_decode($validationErrors, true);
 
@@ -243,10 +243,10 @@ class Json
 
         $data['payload'] = $errorsBags;
 
-        return $this->make($data, 422, []);
+        return self::make($data, 422, []);
     }
 
-    public function created(
+    public static function created(
         $item = [],
         $message = null,
         $code = self::SUCCESS_WITH_SINGLE_PAYLOAD_OBJECT,
@@ -264,10 +264,10 @@ class Json
 
         $data['payload'] = $item;
 
-        return $this->make($data, 201, $extraHeaders);
+        return self::make($data, 201, $extraHeaders);
     }
 
-    public function updated($item = [], $message = null, $code = self::SUCCESS_WITH_SINGLE_PAYLOAD_OBJECT)
+    public static function updated($item = [], $message = null, $code = self::SUCCESS_WITH_SINGLE_PAYLOAD_OBJECT)
     {
         $data = [];
 
@@ -281,15 +281,15 @@ class Json
 
         $data['payload'] = $item;
 
-        return $this->make($data, 200);
+        return self::make($data, 200);
     }
 
-    public function deleted()
+    public static function deleted()
     {
-        return $this->make([], 204);
+        return self::make([], 204);
     }
 
-    public function deletedWithExtraItems($extraItems = [], $message = null, $code = self::SUCCESS_WITHOUT_PAYLOAD)
+    public static function deletedWithExtraItems($extraItems = [], $message = null, $code = self::SUCCESS_WITHOUT_PAYLOAD)
     {
         $data = [];
 
@@ -303,7 +303,7 @@ class Json
 
         $data = array_merge($data, $extraItems);
 
-        return $this->make($data, 200);
+        return self::make($data, 200);
     }
 
     /**
@@ -317,7 +317,7 @@ class Json
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function item(
+    public static function item(
         $item,
         $extraItems = [],
         $message = null,
@@ -338,7 +338,7 @@ class Json
 
         $data = array_merge($data, $extraItems);
 
-        return $this->make($data, $httpStatus);
+        return self::make($data, $httpStatus);
     }
 
     /**
@@ -352,7 +352,7 @@ class Json
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function items(
+    public static function items(
         $mainItems,
         $extraItems = [],
         $code = self::SUCCESS_WITH_LIST_PAYLOAD_OBJECTS,
@@ -361,7 +361,7 @@ class Json
     ) {
         $data = [];
 
-        $mainItems = $this->convertToArray($mainItems);
+        $mainItems = self::convertToArray($mainItems);
 
         $data['code'] = $code;
 
@@ -385,10 +385,10 @@ class Json
 
         $data = array_merge($data, $extraItems);
 
-        return $this->make($data, 200);
+        return self::make($data, 200);
     }
 
-    private function convertToArray($items)
+    private static function convertToArray($items)
     {
         if (!is_array($items)) {
             $items = [$items];

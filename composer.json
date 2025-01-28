@@ -17,6 +17,8 @@
   },
   "require": {
     "nwidart/laravel-modules": "9.0.2",
-    "tucker-eric/eloquentfilter": "^3.4"
+    "tucker-eric/eloquentfilter": "^3.4",
+    "guzzlehttp/guzzle": "^7.9",
+    "tymon/jwt-auth": "^2.1"
   }
 }
