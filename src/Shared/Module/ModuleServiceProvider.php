@@ -2,10 +2,11 @@
 
 declare(strict_types=1);
 
-namespace  BasePackage\Shared\Module;
+namespace BasePackage\Shared\Module;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
+use ReflectionClass;
 
 abstract class ModuleServiceProvider extends ServiceProvider
 {
@@ -59,7 +60,6 @@ abstract class ModuleServiceProvider extends ServiceProvider
                 $this->loadCachedRoutes();
             } else {
                 $this->loadRoutes();
-
                 $this->app->booted(function () {
                     $this->app['router']->getRoutes()->refreshNameLookups();
                     $this->app['router']->getRoutes()->refreshActionLookups();
@@ -71,7 +71,8 @@ abstract class ModuleServiceProvider extends ServiceProvider
     protected function resolveBaseModulePath(): string
     {
         $fqcn = static::class;
-
+        $reflector = new ReflectionClass($fqcn);
+        $filePath = $reflector->getFileName();
         // Drop the last two segments to get the module path, not the file's FQCN
         // or the provider's namespace.
         $path = implode('/', explode('\\', $fqcn, -2));
@@ -81,12 +82,12 @@ abstract class ModuleServiceProvider extends ServiceProvider
         if (str_contains($path, 'Modules/')) {
             $absoluteAppPath = base_path('modules');
             $path = Str::after($path, 'Modules');
-        } elseif (str_contains(__DIR__, 'src')) {
-            $absoluteAppPath = Str::before(__DIR__, 'src');
-            $absoluteAppPath = Str::beforeLast($absoluteAppPath,'/').'/';
+        } elseif (str_contains($filePath, 'src')) {
+            $absoluteAppPath = Str::before($filePath, 'src');
+            $absoluteAppPath = Str::beforeLast($absoluteAppPath, '/') . '/';
             $path = '/src';
         } else {
-            $absoluteAppPath = Str::before(__DIR__, $path);
+            $absoluteAppPath = Str::before($filePath, $path);
         }
 
         return $absoluteAppPath . $path;
