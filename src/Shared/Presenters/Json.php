@@ -185,6 +185,10 @@ class Json
             'Accept-Encoding' => 'gzip, deflate'
         ];
 
+        if (isset($content['pagination']) && isset($content['pagination']['result_count'])) {
+            $arrHeaders['x-total-count'] = $content['pagination']['result_count'];
+        }
+
         if ($extraHeaders) {
             $arrHeaders = array_merge($arrHeaders, $extraHeaders);
         }
