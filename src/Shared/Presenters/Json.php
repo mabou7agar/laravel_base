@@ -186,7 +186,8 @@ class Json
         ];
 
         if (isset($content['pagination']) && isset($content['pagination']['result_count'])) {
-            $arrHeaders['x-total-count'] = $content['pagination']['result_count'];
+            $arrHeaders['X-TOTAL-COUNT'] = $content['pagination']['result_count'];
+            $arrHeaders['Access-Control-Expose-Headers'] = 'X-TOTAL-COUNT';
         }
 
         if ($extraHeaders) {
