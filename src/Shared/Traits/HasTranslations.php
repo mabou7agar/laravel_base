@@ -107,4 +107,16 @@ trait HasTranslations
     {
         return in_array($key, $this->translatable ?? []);
     }
+
+    public function scopeWhereTranslatable($query, $field, $value)
+    {
+        if ($this->isTranslatableAttribute($field)) {
+            return $query->whereHas('translations', function ($q) use ($field, $value) {
+                $q->where('field', $field)
+                    ->where('content', 'LIKE', '%' . $value . '%');
+            });
+        }
+
+        return $query->where($field, 'LIKE', '%' . $value . '%');
+    }
 }
