@@ -90,7 +90,7 @@ trait HasTranslations
             ->where('locale', $locale);
         $fallbackLocale = $this->translations
             ->where('field', $field)
-            ->where('locale', 'en');
+            ->where('locale', env('APP_FALLBACK_LOCALE','ar'));
 
         return $contentLocale->value('content') ?? $fallbackLocale->value('content') ?? '';
     }
